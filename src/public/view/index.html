@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khám phá Việt Nam cùng tớ nhé</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href ="public/css/style.css">
+
+<!--    <script src="/js/script.js"></script>  --> 
+</head>
+
+<body>
+    
+<!-- header section starts  -->
+
+<header>
+
+    <div id="menu-bar" class="fas fa-bars"></div>
+
+    <div class="menu">
+        <button class="menubtn">
+            <a> = </a>
+        </button>
+        <div class="menu-content">
+            <a href="#home">Trang chủ</a>
+            <a href="#">Tài khoản</a>
+            <a href="#">Tin tức</a>
+            <a href="#">Hộp thư</a>
+            <a href="#">Trợ giúp</a>
+        </div>
+    </div>
+    
+    <nav class="navbar">
+        <a href="#home">trang chủ</a>
+        <a href="#packages">Gợi ý địa điểm</a>
+        <a href="#services">Dịch vụ</a>
+        <a href="#gallery">Liên hệ</a>
+    </nav>
+
+    <div class="icons">
+        <i class="fas fa-search" id="search-btn"></i>
+        <i class="fas fa-user" id="login-btn"></i>
+    </div>
+
+    <form action="" class="search-bar-container">
+        <input type="search" id="search-bar" placeholder="search here...">
+        <label for="search-bar" class="fas fa-search"></label>
+    </form>
+
+</header>
+
+<!-- header section ends -->
+
+<!-- login form container  -->
+
+<div class="login-form-container">
+
+    <i class="fas fa-times" id="form-close"></i>
+
+    <form action="">
+        <h3>login</h3>
+        <input type="email" class="box" placeholder="Enter your email">
+        <input type="password" class="box" placeholder="Enter your password">
+        <input type="submit" value="login now" class="btn">
+        <input type="checkbox" id="remember">
+        <label for="remember">remember me</label>
+        <p>forget password? <a href="#">click here</a></p>
+        <p>don't have and account? <a href="#">register now</a></p>
+    </form>
+
+</div>
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>Việt Nam những chuyến đi</h3>
+        <p>Khám phá những vùng đất mới cùng chúng tôi</p>
+        <a href="#" class="btn">discover more</a>
+    </div>
+<!-- Video body -->
+    <div class="controls">
+        <video> 
+            <source src="images/vid1.mp4" type="mp4" />
+        </video>
+    </div>
+
+    <div class="video-container">
+        <video src="images/vid1.mp4" id="video-slider" loop autoplay muted></video>
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+<!-- book section starts  -->
+
+<section class="book" id="book">
+
+    <h1 class="heading">
+        <span>đ</span>
+        <span>i</span>
+        <span>ể</span>
+        <span>m</span>
+        <span class="space"></span>
+        <span>đ</span>
+        <span>ế</span>
+        <span>n</span>
+        <span class="space"></span>
+        <span>c</span>
+        <span>ủ</span>
+        <span>a</span>
+        <span class="space"></span>
+        <span>b</span>
+        <span>ạ</span>
+        <span>n</span>
+    </h1>
+
+    <div class="row">
+
+        <div class="image">
+            <img src="images/datcho.jpg">
+        </div>
+
+        <form action="">
+            <div class="inputBox">
+                <h3>Điểm đến</h3>
+                <input type="text" placeholder="">
+            </div>
+            <input type="submit" class="btn" onclick = "find()" value="Tìm kiếm">
+        </form>
+    </div>
+
+</section>
+
+
+<section class="packages" id="packages">
+
+    <h1 class="heading">
+        <span>đ</span>
+        <span>ị</span>
+        <span>a</span>
+        <span class="space"></span>
+        <span>đ</span>
+        <span>i</span>
+        <span>ể</span>
+        <span>m</span>
+        <span class="space"></span>
+        <span>n</span>
+        <span>ổ</span>
+        <span>i</span>
+        <span class="space"></span>
+        <span>b</span>
+        <span>ậ</span>
+        <span>t</span>
+
+    </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src="images/p-1.jpg" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> Hà Nội </h3>
+                <p>Hà Nội là thủ đô của Việt Nam, được biết đến là một trong những thành phố có nền văn hóa lâu đời và phát triển bậc nhất Đông Nam Á. Với hơn 1000 năm lịch sử, Hà Nội là nơi tập trung nhiều di tích lịch sử, kiến trúc đẹp và nhiều văn hóa truyền thống đa dạng. Ngoài ra, Hà Nội còn được biết đến với những con phố cổ và chợ đêm sầm uất, nơi du khách có thể tìm thấy những món ăn truyền thống ngon miệng và mua sắm những đồ handmade độc đáo. Hà Nội cũng là trung tâm của nền văn hóa, giáo dục, khoa học và công nghệ của đất nước Việt Nam.</p>
+                <a href="#book" class="btn">Khám phá ngay</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/p-2.jpg" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> Hà Giang </h3>
+                <p>Hà Giang là một tỉnh nằm ở phía Bắc Việt Nam, được biết đến với các cảnh quan thiên nhiên đẹp như đồi núi và thung lũng. Từng là một vùng đất hẻo lánh và khó khăn, Hà Giang đã trở thành một điểm đến du lịch được yêu thích bởi vẻ đẹp hoang sơ của vùng cao nguyên Đồng Văn và khu vực đồi núi quanh thị trấn Quản Bạ. Ngoài ra, Hà Giang còn là một điểm đến văn hóa với các bản làng của người dân tộc thiểu số như Mông, Dao và H'Mông. Đến Hà Giang, bạn sẽ được tận hưởng không khí trong lành, tận mắt chiêm ngưỡng những khung cảnh thiên nhiên tuyệt đẹp và khám phá những nét văn hóa độc đáo của người dân địa phương.</p>
+                <a href="#book" class="btn">Khám phá ngay</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/p-3.jpg" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> Sapa </h3>
+                <p>LSaPa là một thị trấn nhỏ nằm ở vùng núi phía bắc của Việt Nam, cách thủ đô Hà Nội khoảng 350 km. Nơi đây được biết đến với phong cảnh thiên nhiên tuyệt đẹp, những đồi chè xanh ngát, những thửa ruộng bậc thang đẹp như tranh vẽ và những dòng suối trong xanh. Với độ cao trên 1.500m so với mực nước biển, SaPa có khí hậu mát mẻ quanh năm và là điểm đến lý tưởng cho những người yêu thích trekking và khám phá văn hóa của các dân tộc thiểu số sống tại đây như H'Mông, Dao, Tày và Xa Phó. Ngoài ra, SaPa cũng là nơi để thưởng thức những món ăn ngon của người dân địa phương và tham gia các hoạt động văn hóa đặc sắc như chèo tôm, nhảy lùn và ca hát tại lễ hội mùa thu.</p>
+                <a href="#book" class="btn">Khám phá ngay</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/p-4.jpg" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> Hạ Long</h3>
+                <p>Vịnh Hạ Long là một trong những điểm đến du lịch nổi tiếng và hấp dẫn nhất của Việt Nam. Vịnh nằm ở phía bắc đất nước, cách thủ đô Hà Nội khoảng 170km và được UNESCO công nhận là Di sản Thiên nhiên Thế giới từ năm 1994. Vịnh Hạ Long có hơn 1.600 đảo đá vôi hiên ngang trên mặt biển, tạo nên một cảnh quan tuyệt đẹp và kỳ vĩ. Du khách có thể tham gia các tour tham quan và khám phá các hang động, thưởng ngoạn cảnh đẹp của các đảo và tham gia các hoạt động như lặn biển, câu cá, kayak và chèo thuyền trên vịnh. Ngoài ra, Vịnh Hạ Long còn có những bãi biển tuyệt đẹp như Bãi Cháy, Tuan Chau, Quan Lan, ... với cát trắng và nước trong xanh cùng nhiều hoạt động thú vị.</p>
+                <a href="#book" class="btn">Khám phá ngay</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/p-5.jpg" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> Đà Nẵng</h3>
+                <p>Đà Nẵng là một thành phố ven biển tuyệt đẹp nằm ở trung tâm Việt Nam. Với vị trí địa lý thuận lợi và nhiều điểm đến du lịch hấp dẫn như bãi biển Mỹ Khê, Ngũ Hành Sơn, cầu Rồng, đèo Hải Vân, Đà Nẵng đã trở thành điểm đến yêu thích của du khách trong và ngoài nước. Thành phố còn có nhiều đặc sản nổi tiếng như mì Quảng, bánh tráng cuốn thịt heo, bánh bèo, và rượu nếp cẩm. Đà Nẵng cũng là một trung tâm kinh tế, giáo dục và văn hóa của miền Trung Việt Nam, với nhiều cơ sở giáo dục, công nghệ và các hoạt động văn hóa sôi động.</p>
+                <a href="#book" class="btn">Khám phá ngay</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/p-6.jpg" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> Nha Trang </h3>
+                <p>Nha Trang là một thành phố nghỉ dưỡng tuyệt vời nằm ở tỉnh Khánh Hòa, miền Trung Việt Nam. Với bờ biển dài, cát trắng và nước biển trong xanh, Nha Trang đã trở thành điểm đến yêu thích của du khách trong và ngoài nước. Ngoài việc thưởng thức các hoạt động biển như lặn ngắm san hô, đi thuyền trên biển, du khách còn có thể khám phá các di tích lịch sử và văn hóa như chùa Long Sơn, Tháp Bà Ponagar và đảo Hòn Mun. Nha Trang cũng nổi tiếng với các món ăn đặc sản như nem nướng Ninh Hòa, bún chả cá và bánh căn. Thành phố còn có nhiều resort, khách sạn sang trọng để du khách lựa chọn cho kỳ nghỉ của mình.</p>
+                <a href="#book" class="btn">Khám phá ngay</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/p-7.jpg" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> TP Hồ Chí Minh </h3>
+                <p>TP Hồ Chí Minh, trước đây gọi là Sài Gòn, là thành phố lớn nhất và phát triển nhất ở miền Nam Việt Nam. Thành phố có nhiều điểm đến lịch sử và văn hóa như Dinh Độc Lập, Bảo tàng Chứng tích chiến tranh, Chợ Bến Thành và Nhà hát Thành phố. TP Hồ Chí Minh còn là trung tâm của kinh tế, giáo dục, khoa học và công nghệ của Việt Nam. Ngoài ra, thành phố cũng nổi tiếng với các món ăn đặc sản như bánh mì, phở, bún chả và hủ tiếu. TP Hồ Chí Minh còn có nhiều công viên, khu mua sắm và khu vui chơi giải trí để du khách có thể tận hưởng những trải nghiệm đầy thú vị.</p>
+                <a href="#book" class="btn">Khám phá ngay</a>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- packages section ends -->
+
+<!-- services section starts  -->
+
+<section class="services" id="services">
+
+    <h1 class="heading">
+        <span>d</span>
+        <span>ị</span>
+        <span>c</span>
+        <span>h</span>
+        <span class="space"></span>
+        <span>v</span>
+        <span>ụ</span>
+    </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <i class="fas fa-hotel"></i>
+            <h3>khách sạn</h3>
+            <p>Tìm phòng khách sạn giá rẻ chỉ với 3 bước đơn giản!</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-utensils"></i>
+            <h3>Vé máy bay</h3>
+            <p>Tìm vé máy bay khuyến mãi & vé giá rẻ chỉ với 3 bước đơn giản!</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-bullhorn"></i>
+            <h3>nhà hàng</h3>
+            <p>Tìm những khuyến mãi và tham khảo giá cả hợp lý chỉ với 3 bước đơn giản!</p>
+        </div>
+        
+    </div>
+
+</section>
+
+<!-- services section ends -->
+
+<!-- gallery section starts  -->
+
+
+<section class="footer">
+
+    <div class="box-container">
+        
+        <div class="box">
+            <h3>Về ứng dụng</h3>
+            <a href="#home">Trang chủ</a>
+            <a href="#book">Điểm đến của bạn</a>
+            <a href="#packages">Địa điểm nổi bật</a>
+            <a href="#services">Dịch vụ</a>
+        </div>
+        <div class="box">
+            <h3>Theo dõi tôi</h3>
+            <a href="#https://www.facebook.com/haison.le.10485/">facebook</a>
+            <a href="#https://www.instagram.com/lehaison_/">instagram</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>  -->
+
+<!-- custom js file link  -->
+<script src="script.js"></script>
+
+</body>
+</html>
