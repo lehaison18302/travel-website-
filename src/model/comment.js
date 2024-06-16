@@ -1,22 +1,23 @@
+/*
 "use strict";
-const { Model, DataTypes } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-    class Rating extends Model {
+const { Model } = require("sequelize");
+module.exports = (sequelize, DataTypes) =>  {
+    class Comment extends Model {
         static associate(models) {
-          Rating.belongsTo(models.User, {
+          Comment.belongsTo(models.Users, {
             foreignKey: "userID",
             as: "user",
           });
     
-          Rating.belongsTo(models.Post, {
+          Comment.belongsTo(models.Posts, {
             foreignKey: "postID", 
             as: "post",
           });
         }
       }
-  Rating.init(
+  Comment.init(
     {
-      ratingID: {
+      commentID: {
         type: DataTypes.INTEGER,
         primaryKey: true, 
         autoIncrement: true,
@@ -37,24 +38,14 @@ module.exports = (sequelize, DataTypes) => {
             key: "postID",
         },
       },
-      rating: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          min: {
-            args: [1],
-          },
-          max: {
-            args: [5],
-          },
-        },
-      },
-      daterated: DataTypes.DATE,
+      commentText: DataTypes.STRING,
+      dateCommented: DataTypes.DATE,
     },
     {
       sequelize,
-      modelName: "Ratings",
+      modelName: "Comments",
     }
   );
-  return Rating;
+  return Comment;
 };
+*/

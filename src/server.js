@@ -1,10 +1,12 @@
-//import express from 'express';
 const express = require("express");
-const rootRouter = require("./routes");
+const rootRouter = require("./router");
 const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 5500;
-const mysql = require('mysql2');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use("/api/v1", rootRouter);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");
@@ -19,20 +21,7 @@ app.use((error, req, res, next) => {
   });
 });
 
-// Tạo kết nối
-const connection = mysql.createConnection(config);
-
-connection.connect((err) => {
-  if (err) {
-      console.error('Error connecting to database:', err);
-      return;
-  }
-  console.log('Connected to database');
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
-
-app.listen(port, () =>
-{
-  console.log('server is running on port ${port}');
-});
-
-

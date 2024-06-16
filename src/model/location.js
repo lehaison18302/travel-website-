@@ -1,3 +1,4 @@
+/*
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -9,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+
   Location.init(
     {
       locationName: DataTypes.STRING,
-      
     },
     {
       sequelize,
@@ -21,3 +22,4 @@ module.exports = (sequelize, DataTypes) => {
   );
   return Location;
 };
+*/
