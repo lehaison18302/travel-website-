@@ -27,9 +27,8 @@ loginroute.post('/login',(req, res) => {
         const user = results[0];
 
         if (password === user.password) {
-
-            console.log(user);
-            const accessToken = {username : userName , password : password};
+            const accessToken = {username : userName , password : password , isAdmin : user.isAdmin , user_id : user.id , displayName : user.displayName};
+            console.log(accessToken);
             res.json({ accessToken });
         } else {
             return res.status(401).send('Incorrect password');

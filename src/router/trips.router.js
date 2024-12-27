@@ -18,7 +18,7 @@ connection.connect((err) => {
 });
 
 tripsRouter.get('/trips',(req,res) =>{
-  const query = 'SELECT * FROM trips';
+  const query = 'SELECT * FROM location';
   connection.query(query, (err,results) =>{
     res.json(results);
   });
@@ -26,26 +26,23 @@ tripsRouter.get('/trips',(req,res) =>{
 
 
 
-tripsRouter.get('/tripsID/:id', (req, res) => {
-  const id = req.params.id;
-  console.log(id);
+tripsRouter.get("/tripID/:id", (req, res) => {
+  const tripId = req.params.id;
 
-    const query = 'SELECT * FROM tripdetails WHERE id = ?';
-    connection.query(query, [id], (error, results) => {
-      if (error) {
-        console.error('Error executing query:', error);
-        res.status(500).send({ message: 'Error retrieving trip details' });
-        return;
-      }
 
-      if (results.length === 0) {
-        res.status(404).send({ message: 'Trip not found' });
-        return;
-      }
+  const query = "SELECT * FROM location WHERE id = ?";
+  connection.query(query, [tripId], (error, results) => {
+    if (error) {
+      console.error("Error fetching trip details:", error);
+      return res.status(500).json({ error: "Error fetching trip details" });
+    }
 
-      console.log(results);
-      res.status(200).json(results[0]);
-    });
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Trip not found" });
+    }
+
+    res.status(200).json(results[0]);
+  });
 });
 
 module.exports = tripsRouter;

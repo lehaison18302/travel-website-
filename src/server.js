@@ -2,6 +2,8 @@ const express = require("express");
 const rootRouter = require("./router");
 const cors = require("cors");
 const mysql = require("mysql2");
+const axios = require('axios');
+const fs = require('fs');
 const app = express();
 const PORT = 3000;
 
