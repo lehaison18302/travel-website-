@@ -22,14 +22,14 @@ contactRouter.use(express.json());
 
 // API POST để nhận form từ client
 contactRouter.post('/contact', (req, res) => {
-  const { name, email, message } = req.body;
-
-  if (!name || !email || !message) {
+  const { user_id, title, address, image, phoneNumber, website } = req.body;
+  console.log(user_id, title, address, image, phoneNumber, website);
+  if (!user_id || !title || !address || !image ) {
     return res.status(400).send({ message: 'All fields are required' });
   }
 
-  const query = 'INSERT INTO contact (name, email, message) VALUES (?, ?, ?)';
-  connection.query(query, [name, email, message], (error, results) => {
+  const query = 'INSERT INTO contacts (user_id, title, address, image, phoneNumber, website) VALUES (?, ?, ?, ?, ?, ?)';
+  connection.query(query, [user_id, title, address, image, phoneNumber, website], (error, results) => {
     if (error) {
       console.error('Error executing query:', error);
       return res.status(500).send({ message: 'Error saving contact message' });
@@ -38,4 +38,6 @@ contactRouter.post('/contact', (req, res) => {
   });
 });
 
+//gui vai viet len giao dien
+ 
 module.exports = contactRouter;

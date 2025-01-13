@@ -21,13 +21,13 @@ loginroute.post('/login',(req, res) => {
         }
 
         if (results.length === 0) {
-            return res.status(401).send('Username does not exist');
+            return res.status(200).send(false);
         }
 
         const user = results[0];
 
         if (password === user.password) {
-            const accessToken = {username : userName , password : password , isAdmin : user.isAdmin , user_id : user.id , displayName : user.displayName};
+            const accessToken = {username : userName , password : password , isAdmin : user.isAdmin , user_id : user.id , displayName : user.displayName , email : user.email};
             console.log(accessToken);
             res.json({ accessToken });
         } else {

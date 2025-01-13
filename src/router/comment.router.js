@@ -127,4 +127,200 @@ commentRouter.post("/commentsLocation", (req, res) => {
   });
 });
 
+// API: Lấy bình luận cho nhà hàng
+commentRouter.get("/commentsRestaurant", (req, res) => {
+  const { restaurant_id } = req.query;
+  console.log("Restaurant ID:", restaurant_id);
+
+  if (!restaurant_id) {
+    return res.status(400).json({ error: "restaurant_id is required" });
+  }
+
+  const query = `
+    SELECT comments_restaurant.id, 
+           comments_restaurant.comment_text, 
+           comments_restaurant.created_at, 
+           users.displayName 
+    FROM comments_restaurant
+    JOIN users ON comments_restaurant.user_id = users.id
+    WHERE comments_restaurant.restaurant_id = ?
+    ORDER BY comments_restaurant.created_at DESC
+  `;
+
+  connection.query(query, [restaurant_id], (error, results) => {
+    if (error) {
+      console.error("Error fetching comments for restaurant:", error);
+      return res.status(500).json({ error: "Error fetching comments" });
+    }
+    res.status(200).json(results);
+  });
+});
+
+// API: Thêm mới bình luận cho nhà hàng
+commentRouter.post("/commentsRestaurant", (req, res) => {
+  const { restaurant_id, user_id, comment_text } = req.body;
+  console.log("Received Restaurant Comment Data:", req.body);
+
+  if (!restaurant_id || !user_id || !comment_text) {
+    return res.status(400).json({ error: "restaurant_id, user_id, and comment_text are required" });
+  }
+
+  const query = `
+    INSERT INTO comments_restaurant (restaurant_id, user_id, comment_text, created_at)
+    VALUES (?, ?, ?, NOW())
+  `;
+
+  connection.query(query, [restaurant_id, user_id, comment_text], (error, results) => {
+    if (error) {
+      console.error("Error adding comment for restaurant:", error);
+      return res.status(500).json({ error: "Error adding comment" });
+    }
+    res.status(201).json({ message: "Comment added successfully", id: results.insertId });
+  });
+});
+
+// API: Xóa bình luận từ bảng comments_location
+commentRouter.delete("/deleteCommentLocation", (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "Comment ID is required" });
+  }
+
+  const query = `DELETE FROM comments_location WHERE id = ?`;
+
+  connection.query(query, [id], (error, results) => {
+    if (error) {
+      console.error("Error deleting comment from comments_location:", error);
+      return res.status(500).json({ error: "Error deleting comment" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    res.status(200).json({ message: "Comment deleted successfully" });
+  });
+});
+
+// API: Sửa bình luận từ bảng comments_location
+commentRouter.put("/editCommentLocation", (req, res) => {
+  const { id, comment } = req.body;
+
+  if (!id || !comment) {
+    return res.status(400).json({ error: "Comment ID and updated comment text are required" });
+  }
+
+  const query = `UPDATE comments_location SET comment = ?, updated_at = NOW() WHERE id = ?`;
+
+  connection.query(query, [comment, id], (error, results) => {
+    if (error) {
+      console.error("Error updating comment in comments_location:", error);
+      return res.status(500).json({ error: "Error updating comment" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    res.status(200).json({ message: "Comment updated successfully" });
+  });
+});
+
+// API: Xóa bình luận từ bảng comments_hotel
+commentRouter.delete("/deleteCommentHotel", (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "Comment ID is required" });
+  }
+
+  const query = `DELETE FROM comments_hotel WHERE id = ?`;
+
+  connection.query(query, [id], (error, results) => {
+    if (error) {
+      console.error("Error deleting comment from comments_hotel:", error);
+      return res.status(500).json({ error: "Error deleting comment" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    res.status(200).json({ message: "Comment deleted successfully" });
+  });
+});
+
+// API: Sửa bình luận từ bảng comments_hotel
+commentRouter.put("/editCommentHotel", (req, res) => {
+  const { id, comment_text } = req.body;
+
+  if (!id || !comment_text) {
+    return res.status(400).json({ error: "Comment ID and updated comment text are required" });
+  }
+
+  const query = `UPDATE comments_hotel SET comment_text = ?, updated_at = NOW() WHERE id = ?`;
+
+  connection.query(query, [comment_text, id], (error, results) => {
+    if (error) {
+      console.error("Error updating comment in comments_hotel:", error);
+      return res.status(500).json({ error: "Error updating comment" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    res.status(200).json({ message: "Comment updated successfully" });
+  });
+});
+
+// API: Xóa bình luận từ bảng comments_restaurant
+commentRouter.delete("/deleteCommentRestaurant", (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "Comment ID is required" });
+  }
+
+  const query = `DELETE FROM comments_restaurant WHERE id = ?`;
+
+  connection.query(query, [id], (error, results) => {
+    if (error) {
+      console.error("Error deleting comment from comments_restaurant:", error);
+      return res.status(500).json({ error: "Error deleting comment" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    res.status(200).json({ message: "Comment deleted successfully" });
+  });
+});
+
+// API: Sửa bình luận từ bảng comments_restaurant
+commentRouter.put("/editCommentRestaurant", (req, res) => {
+  const { id, comment_text } = req.body;
+
+  if (!id || !comment_text) {
+    return res.status(400).json({ error: "Comment ID and updated comment text are required" });
+  }
+
+  const query = `UPDATE comments_restaurant SET comment_text = ?, updated_at = NOW() WHERE id = ?`;
+
+  connection.query(query, [comment_text, id], (error, results) => {
+    if (error) {
+      console.error("Error updating comment in comments_restaurant:", error);
+      return res.status(500).json({ error: "Error updating comment" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    res.status(200).json({ message: "Comment updated successfully" });
+  });
+});
+
 module.exports = commentRouter;

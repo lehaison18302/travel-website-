@@ -3,11 +3,11 @@ const mysql = require("mysql2");
 const tripsRouter = express.Router();
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'travels-web',
-  port: 3307,
-});
+    host: 'localhost',
+    user: 'root',
+    database: 'travels-web',
+    port: 3307,
+  });
 
 // Connect to MySQL database
 connection.connect((err) => {

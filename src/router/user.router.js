@@ -14,7 +14,6 @@ const connection = mysql.createConnection({
       connection.query('SELECT * FROM users', (error, user) => {
         if (error) throw error;
         console.log(user);
-
       })
     }
     catch(err){
