@@ -7,9 +7,9 @@ const connection = mysql.createConnection({
     user: 'root',
     database: 'travels-web',
     port: 3307,
-  });
+});
 
-loginroute.post('/login',(req, res) => {
+loginroute.post('/login', (req, res) => {
     const userName = req.body.username;
     const password = req.body.password;
     console.log(userName, password);
@@ -27,11 +27,11 @@ loginroute.post('/login',(req, res) => {
         const user = results[0];
 
         if (password === user.password) {
-            const accessToken = {username : userName , password : password , isAdmin : user.isAdmin , user_id : user.id , displayName : user.displayName , email : user.email};
+            const accessToken = { username: userName, password: password, isAdmin: user.isAdmin, user_id: user.id, displayName: user.displayName, email: user.email };
             console.log(accessToken);
             res.json({ accessToken });
         } else {
-            return res.status(401).send('Incorrect password');
+            return res.status(200).send(false);
         }
     });
 });

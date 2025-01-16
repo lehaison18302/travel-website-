@@ -96,7 +96,6 @@ commentRouter.get("/commentsLocation", (req, res) => {
       return res.status(500).json({ error: "Error fetching comments" });
     }
     res.status(200).json(results);
-    console.log(results);
   });
 });
 

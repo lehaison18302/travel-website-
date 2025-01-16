@@ -9,6 +9,7 @@ const commentRouter = require("./comment.router");
 const voteRouter = require("./vote.router");
 const suggestRouter = require("./suggest.router");
 const favouriteRouter = require("./favourite.router");
+const searchRouter = require("./search.router");
 const rootRouter = require("express").Router();
 
 
@@ -23,6 +24,7 @@ rootRouter.use(commentRouter);
 rootRouter.use(voteRouter);
 rootRouter.use(suggestRouter);
 rootRouter.use(favouriteRouter);
+rootRouter.use(searchRouter);
 
 module.exports = rootRouter;
 

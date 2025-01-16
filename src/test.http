@@ -1,4 +1,4 @@
-GET http://localhost:3000/localhost:3000/vote
+POST  http://localhost:3000/search
 
 
 

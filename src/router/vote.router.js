@@ -71,7 +71,7 @@ const handleVote = (req, res, tableName, idField, voteField) => {
 
 // API: Vote cho Location
 voteRouter.post('/voteLocation', (req, res) => {
-  handleVote(req, res, 'locations', 'id', 'location_id');
+  handleVote(req, res, 'location', 'id', 'location_id');
 });
 
 // API: Vote cho Hotel
@@ -85,86 +85,63 @@ voteRouter.post('/voteRestaurant', (req, res) => {
 });
 
 // API: Lấy thông tin các đối tượng đã vote
-voteRouter.get("/vote", (req, res) => {
+voteRouter.post("/vote", async (req, res) => {
   const { user_id } = req.body;
+  console.log(user_id);
 
   if (!user_id) {
     return res.status(400).json({ error: "user_id is required" });
   }
 
-  // Lấy dữ liệu từ bảng vote
-  const voteQuery = `
-    SELECT location_id, hotel_id, restaurant_id 
-    FROM vote 
-    WHERE user_id = ?
-  `;
-
-  connection.query(voteQuery, [user_id], (voteError, voteResults) => {
-    if (voteError) {
-      console.error("Error fetching vote data:", voteError);
-      return res.status(500).json({ error: "Error fetching vote data" });
-    }
+  try {
+    // Lấy dữ liệu từ bảng vote
+    const [voteResults] = await connection.promise().query(`
+      SELECT location_id, hotel_id, restaurant_id 
+      FROM vote 
+      WHERE user_id = ?`, [user_id]);
 
     if (voteResults.length === 0) {
       return res.status(404).json({ error: "No vote data found for the user" });
     }
-
-    const locations = [];
-    const hotels = [];
-    const restaurants = [];
 
     // Tách các ID từ kết quả truy vấn
     const locationIds = voteResults.filter(v => v.location_id).map(v => v.location_id);
     const hotelIds = voteResults.filter(v => v.hotel_id).map(v => v.hotel_id);
     const restaurantIds = voteResults.filter(v => v.restaurant_id).map(v => v.restaurant_id);
 
-    // Lấy dữ liệu từ bảng locations
-    const locationQuery = `SELECT * FROM locations WHERE id IN (?)`;
-    connection.query(locationQuery, [locationIds], (locationError, locationResults) => {
-      if (locationError) {
-        console.error("Error fetching locations:", locationError);
-        return res.status(500).json({ error: "Error fetching locations" });
-      }
-      locations.push(...locationResults);
+    // Khởi tạo các mảng chi tiết
+    let locations = [], hotels = [], restaurants = [];
 
-      // Lấy dữ liệu từ bảng hotels
-      const hotelQuery = `SELECT * FROM hotels WHERE id IN (?)`;
-      connection.query(hotelQuery, [hotelIds], (hotelError, hotelResults) => {
-        if (hotelError) {
-          console.error("Error fetching hotels:", hotelError);
-          return res.status(500).json({ error: "Error fetching hotels" });
-        }
-        hotels.push(...hotelResults);
+    // Lấy chi tiết nếu có ID
+    if (locationIds.length > 0) {
+      [locations] = await connection.promise().query(`
+        SELECT * FROM location WHERE id IN (?)`, [locationIds]);
+    }
 
-        // Lấy dữ liệu từ bảng restaurants
-        const restaurantQuery = `SELECT * FROM restaurants WHERE id IN (?)`;
-        connection.query(restaurantQuery, [restaurantIds], (restaurantError, restaurantResults) => {
-          if (restaurantError) {
-            console.error("Error fetching restaurants:", restaurantError);
-            return res.status(500).json({ error: "Error fetching restaurants" });
-          }
-          restaurants.push(...restaurantResults);
+    if (hotelIds.length > 0) {
+      [hotels] = await connection.promise().query(`
+        SELECT * FROM hotels WHERE id IN (?)`, [hotelIds]);
+    }
 
-          // Tổng hợp dữ liệu
-          const responseData = { locations, hotels, restaurants };
+    if (restaurantIds.length > 0) {
+      [restaurants] = await connection.promise().query(`
+        SELECT * FROM restaurants WHERE id IN (?)`, [restaurantIds]);
+    }
 
-          // Ghi dữ liệu vào file JSON
-          const filePath = path.join(__dirname, "vote_data.json");
-          fs.writeFile(filePath, JSON.stringify(responseData, null, 2), (fileError) => {
-            if (fileError) {
-              console.error("Error writing to file:", fileError);
-              return res.status(500).json({ error: "Error writing data to file" });
-            }
+    // Tổng hợp dữ liệu
+    const responseData = [
+      ...locations,
+      ...hotels,
+      ...restaurants,
+    ];
+    console.log(responseData);
 
-            res.status(200).json({
-              message: "Data fetched and saved successfully",
-              data: responseData,
-            });
-          });
-        });
-      });
-    });
-  });
+    res.status(200).json(responseData);
+
+  } catch (error) {
+    console.error("Error fetching vote data:", error);
+    res.status(500).json({ error: "Error fetching vote data" });
+  }
 });
 
 

@@ -18,16 +18,16 @@ connection.connect((err) => {
 });
 
 // API tìm kiếm
-searchRouter.post('/search', (req, res) => {
-    const { query } = req.body;
-    console.log(query);
+searchRouter.get('/search', (req, res) => {
+  const { search } = req.query; // Lấy giá trị từ query string
+  console.log(search);
 
-    if (!query) {
-        return res.status(400).json({ message: 'Query is required' });
-    }
-
-    // SQL tìm kiếm trong 3 bảng
-    const searchQuery = `
+/* if (!search) {
+    return res.status(400).json({ message: 'Search query is required' });
+  }
+*/
+  // SQL tìm kiếm trong 3 bảng
+  const searchQuery = `
         SELECT 'location' AS source, id, title, address FROM location WHERE title LIKE ? OR address LIKE ?
         UNION
         SELECT 'hotels' AS source, id, title, address FROM hotels WHERE title LIKE ? OR address LIKE ?
@@ -35,18 +35,18 @@ searchRouter.post('/search', (req, res) => {
         SELECT 'restaurants' AS source, id, title, address FROM restaurants WHERE title LIKE ? OR address LIKE ?;
     `;
 
-    const searchTerm = `%${query}%`;
+  const searchTerm = `%${search}%`;
 
-    connection.query(searchQuery, [searchTerm, searchTerm, searchTerm, searchTerm, searchTerm, searchTerm], (err, results) => {
-        if (err) {
-            console.error('Error executing query:', err);
-            return res.status(500).json({ message: 'Error searching database' });
-        }
+  connection.query(searchQuery, [searchTerm, searchTerm, searchTerm, searchTerm, searchTerm, searchTerm], (err, results) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      return res.status(500).json({ message: 'Error searching database' });
+    }
 
-        // Trả về kết quả tìm kiếm
-        res.json(results);
-    });
+    // Trả về kết quả tìm kiếm
+    res.json(results);
+    console.log(results);
+  });
 });
 
-
-module.exports = tripsRouter;
+module.exports = searchRouter;
